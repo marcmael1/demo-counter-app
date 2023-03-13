@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout From VCS'){
             steps {
-                script {
+                script{
                     checkout scmGit(branches: [[name: '*/dev']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/marcmael1/demo-counter-app.git']])
                 }
             }
