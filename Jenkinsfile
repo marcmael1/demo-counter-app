@@ -25,5 +25,13 @@ pipeline {
                 }
             }
         }
+
+        stage('Build Artifac'){
+            steps{
+                script{
+                    sh 'mvn clean install'
+                }
+            }
+        }
     }
 }
