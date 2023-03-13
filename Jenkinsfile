@@ -74,7 +74,7 @@ pipeline {
                     nexusUrl: '18.212.54.162:8081', 
                     nexusVersion: 'nexus3', 
                     protocol: 'http', 
-                    repository: 'counter-java-webapp-release', 
+                    repository: chooseNexusRepo, 
                     version: readPomVersion.version
                 }
             }
