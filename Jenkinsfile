@@ -85,7 +85,18 @@ pipeline {
                 script{
                     sh 'docker image build -t $JOB_NAME:v1.$BUILD_ID .'
                     sh 'docker image tag $JOB_NAME:v1.$BUILD_ID marcmael/$JOB_NAME:v1.$BUILD_ID'
-                    sh 'docker image tag $JOB_NAME:v1.$BUILD_ID marcmael/$JOB_NAME:v1.$BUILD_ID:latest'
+                    sh 'docker image tag $JOB_NAME:v1.$BUILD_ID marcmael/$JOB_NAME:latest'
+                }
+            }
+        }
+
+        stage('Push Image to DockerHub'){
+            steps{
+                script{
+                    withDockerRegistry(credentialsId: 'docker-cred') {
+                        sh 'docker push marcmael/$JOB_NAME:v1.$BUILD_ID'
+                        sh 'docker push marcmael/$JOB_NAME:latest'
+                    }
                 }
             }
         }
