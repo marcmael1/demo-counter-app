@@ -56,8 +56,8 @@ pipeline {
             steps{
                 script{
 
-                    def readPomVersion = readMavenPom file: 'pom.xml'
-                    def chooseNexusRepo = readPomVersion.version.endsWith ("SNAPSHOT") ? "counter-java-webapp-snapshot" : "counter-java-webapp-release"
+                    // def readPomVersion = readMavenPom file: 'pom.xml'
+                    // def chooseNexusRepo = readPomVersion.version.endsWith ("SNAPSHOT") ? "counter-java-webapp-snapshot" : "counter-java-webapp-release"
 
                     nexusArtifactUploader artifacts: 
                     [
@@ -74,8 +74,10 @@ pipeline {
                     nexusUrl: '18.212.54.162:8081', 
                     nexusVersion: 'nexus3', 
                     protocol: 'http', 
-                    repository: chooseNexusRepo, 
-                    version: readPomVersion.version
+                    repository: 'counter-java-webapp-release',
+                    // chooseNexusRepo, 
+                    version: '1.0.0'
+                    // readPomVersion.version
                 }
             }
         }
