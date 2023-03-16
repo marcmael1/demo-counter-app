@@ -1,0 +1,24 @@
+pipeline {
+    agent any
+
+    parameters {
+        choice:(name: 'actions', choices: 'create\ndestroy', description: 'apply and delete the application files on EKS cluster')
+        string(name: 'cluster', defaultValue: 'counter-cluster'. description: 'choose EKS cluster name')
+        string(name: 'region', defaultValue: 'us-eat-1'. description: 'choose AWS region')
+    }
+
+    environment{
+        ACCESS_KEY = credentials('AWS_ACCESS_KEY_ID')
+        SECRET_KEY = credentials('AWS_SECRET_KEY_ID')
+    }
+
+    stages {
+        stage('Checkout'){
+            steps{
+                script{
+                    checkout scmGit(branches: [[name: '*/dev']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/marcmael1/demo-counter-app.git']])
+                }
+            }
+        }
+    }
+}
