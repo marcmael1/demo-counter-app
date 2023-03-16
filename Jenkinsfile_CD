@@ -3,8 +3,8 @@ pipeline {
 
     parameters{
         choice(name: 'action', choices: 'create\ndestroy', description: 'apply and delete the application files on EKS cluster')
-        string(name: 'cluster', defaultValue: 'counter-cluster'. description: 'choose EKS cluster name')
-        string(name: 'region', defaultValue: 'us-eat-1'. description: 'choose AWS region')
+        string(name: 'cluster', defaultValue: 'counter-cluster', description: 'choose EKS cluster name')
+        string(name: 'region', defaultValue: 'us-eat-1', description: 'choose AWS region')
     }
 
     environment{
