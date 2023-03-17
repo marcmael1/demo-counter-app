@@ -51,8 +51,7 @@ pipeline {
                     }
                     if(apply){
                         sh """
-                            kubectl apply -f /CICD/demo-counter-app/deployment.yml
-                            kubectl apply -f /CICD/demo-counter-app/service.yml
+                            kubectl apply -f .
                         """
                     }
                 }
