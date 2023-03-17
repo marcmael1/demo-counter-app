@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     parameters{
-        choice(name: 'action', choices: 'create\ndestroy', description: 'apply and delete the application files on EKS cluster')
+        choice(name: 'action', choices: 'apply\ndelete', description: 'apply and delete the application files on EKS cluster')
         string(name: 'cluster', defaultValue: 'counter-cluster', description: 'choose EKS cluster name')
         string(name: 'region', defaultValue: 'us-east-1', description: 'choose AWS region')
     }
@@ -30,6 +30,30 @@ pipeline {
                     aws configure set region "${params.region}"
                     aws eks --region ${params.region} update-kubeconfig --name ${params.cluster}
                     """)
+                }
+            }
+        }
+
+        stage('Deployment on eks cluster'){
+
+            when(expression {params.action == 'apply'})
+            steps{
+                script{
+
+                    def apply = false
+
+                    try{
+                        input message: 'Please confirme apply to initiate the deployment', ok: 'Ready to apply the config?'
+                        apply = true
+                    }catch(err){
+                        apply = false
+                        currentBuild.result = 'UNSTABLE'
+                    }
+                    if(apply){
+                        sh """
+                            kubectl apply -f .
+                        """
+                    }
                 }
             }
         }
