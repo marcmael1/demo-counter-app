@@ -14,8 +14,8 @@ spec:
         app: myspringbootapp
     spec:
       containers:
-        -name: myspringbootapp
-        image: marcmael/counter-java-webapp:latest
+        - name: myspringbootapp
+        - image: marcmael/counter-java-webapp:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 9099
