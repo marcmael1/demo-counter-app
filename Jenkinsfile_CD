@@ -36,7 +36,7 @@ pipeline {
 
         stage('Deployment on eks cluster'){
 
-            when{expression {params.action == 'apply'})}
+            when{expression {params.action == 'apply'}}
             steps{
                 script{
 
